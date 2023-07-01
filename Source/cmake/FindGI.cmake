@@ -376,7 +376,7 @@ function(GI_INTROSPECT namespace nsversion header)
     add_custom_command(
         OUTPUT "${typ_path}"
         COMMENT "Generating ${gir_name}.typelib"
-        DEPENDS "${gir_path}"
+        DEPENDS "gir-${namespace}"
         VERBATIM
         COMMAND "${GI_COMPILER_EXE}"
             "--includedir=${CMAKE_BINARY_DIR}"

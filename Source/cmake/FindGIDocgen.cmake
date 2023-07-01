@@ -180,7 +180,7 @@ function(GI_DOCGEN namespace toml)
     endif ()
     set(outdir "${CMAKE_BINARY_DIR}/Documentation/${package}")
 
-    set(docdeps "${toml_path};${gir_path}")
+    set(docdeps "${toml_path};gir-${namespace}")
     foreach (item IN LISTS opt_CONTENT_TEMPLATES)
         get_filename_component(filename "${item}" NAME)
         configure_file("${item}.in" "${contentdir}/${filename}" @ONLY)
@@ -239,10 +239,11 @@ function(GI_DOCGEN namespace toml)
     add_custom_target("doc-check-${namespace}"
         COMMENT "Checking documentation: ${namespace}"
         WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
-        DEPENDS "${toml_path}" "${gir_path}"
+        DEPENDS "${toml_path}"
         VERBATIM
         COMMAND "${GIDocgen_EXE}" check ${common_flags} "${gir_path}"
     )
+    add_dependencies("doc-check-${namespace}" "gir-${namespace}")
 
     if (NOT TARGET doc-check-all)
         add_custom_target(doc-check-all COMMENT "Check all documentation targets")
