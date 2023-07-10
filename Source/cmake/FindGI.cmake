@@ -265,7 +265,7 @@ function(GI_INTROSPECT namespace nsversion header)
             get_property(dep_gir_lib TARGET "gir-${dep}" PROPERTY GI_GIR_LIBRARY)
             if (dep_gir_path)
                 list(APPEND scanner_flags "--include-uninstalled=${dep_gir_path}")
-                list(APPEND gir_deps "${dep_gir_path}")
+                list(APPEND gir_deps "gir-${dep}")
             else ()
                 message(AUTHOR_WARNING
                     "Target '${dep}' listed as a dependency but it has not "
